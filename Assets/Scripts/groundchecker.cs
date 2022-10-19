@@ -4,32 +4,29 @@ using UnityEngine;
 
 public class groundchecker : MonoBehaviour
 {
-     public Player_movement caballero;
-     public Animator animatronix;
-
+     public static bool isGrounded;
+     public Player_movement player;
+     
 
     void Awake()
     {
-         caballero = GameObject.Find("caballero").GetComponent<Player_movement>();
-         animatronix = GetComponent<Animator>();
+         player = GameObject.Find("knight").GetComponent<Player_movement>();
+         
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+     void OnTriggerStay2D(Collider2D col)
     {
-         caballero.animatronix.SetBool("Jumping", false);
-         caballero.isGrounded = true;
-    }
-
-
-    void OnTriggerStay2D(Collider2D col)
-    {
-         caballero.isGrounded = true;
+         if(col.gameObject.tag == "Ground")
+         {
+        player.isGrounded = true;
+        player.animatronix.SetBool("jump", false);
+        }
         
     }
 
     void OnTriggerExit2D(Collider2D col)
 
     {
-         caballero.isGrounded = false;
+         player.isGrounded = false;
     }
 }
